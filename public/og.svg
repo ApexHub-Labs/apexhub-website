@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect x="24" y="24" width="1152" height="582" fill="none" stroke="#676767" stroke-width="1"/>
+  <!-- triple-peak apex mark -->
+  <g transform="translate(96 150)" stroke="#FFFFFF" stroke-width="2" fill="none">
+    <path d="M0 120 L70 12 L150 120"/>
+    <path d="M70 120 L128 30 L210 120" fill="#676767" fill-opacity="0.55" stroke="none"/>
+    <path d="M70 120 L128 30 L210 120"/>
+    <path d="M150 120 L196 52 L262 120" fill="#676767" fill-opacity="0.55" stroke="none"/>
+    <path d="M150 120 L196 52 L262 120"/>
+  </g>
+  <text x="96" y="360" font-family="Montserrat, Arial, sans-serif" font-size="92" font-weight="700" letter-spacing="6" fill="#FFFFFF">APEXHUB</text>
+  <text x="100" y="410" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="18" fill="#676767">LABS</text>
+  <text x="100" y="520" font-family="Montserrat, Arial, sans-serif" font-size="30" font-weight="500" letter-spacing="12" fill="#FFFFFF">BUILD.  TRANSFORM.  INNOVATE.</text>
+</svg>
