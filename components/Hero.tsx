@@ -2,18 +2,15 @@ import Reveal from "./Reveal";
 import SplitText from "./SplitText";
 import Parallax from "./Parallax";
 import Magnetic from "./Magnetic";
+import HeroParticles from "./HeroParticles";
 import { ArrowRight, ArrowDown } from "./icons";
-
-const CAPABILITIES = [
-  { k: "01", v: "Digital Presence" },
-  { k: "02", v: "Business Systems" },
-  { k: "03", v: "Software Products" },
-  { k: "04", v: "Innovation" },
-];
 
 export default function Hero() {
   return (
     <section className="hero" id="top">
+      {/* Interactive 3D particle logo — decorative canvas, client-only */}
+      <HeroParticles />
+
       {/* Oversized ghost wordmark, drifting on scroll */}
       <div className="hero__ghost" aria-hidden="true">
         <Parallax distance={70}>
@@ -65,15 +62,6 @@ export default function Hero() {
             </Magnetic>
           </Reveal>
         </div>
-
-        <Reveal as="dl" className="hero__meta" delay={720}>
-          {CAPABILITIES.map((c) => (
-            <div key={c.k}>
-              <dt>{c.k}</dt>
-              <dd>{c.v}</dd>
-            </div>
-          ))}
-        </Reveal>
       </div>
 
       <div className="hero__scroll" aria-hidden="true">

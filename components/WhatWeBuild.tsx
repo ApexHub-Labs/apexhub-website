@@ -1,6 +1,7 @@
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
-import { ArrowUpRight } from "./icons";
+import Parallax from "./Parallax";
+import ServicesSlider from "./ServicesSlider";
 
 const PILLARS = [
   {
@@ -27,8 +28,15 @@ const PILLARS = [
 
 export default function WhatWeBuild() {
   return (
-    <section className="section" id="services">
-      <div className="container">
+    <section className="section section--light services" id="services">
+      {/* Oversized outlined wordmark, drifting on scroll */}
+      <div className="services__ghost" aria-hidden="true">
+        <Parallax distance={110}>
+          <span>APEXHUB</span>
+        </Parallax>
+      </div>
+
+      <div className="container services__inner">
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
@@ -46,18 +54,10 @@ export default function WhatWeBuild() {
           </Reveal>
         </div>
 
-        <div className="rows">
-          {PILLARS.map((p, i) => (
-            <Reveal key={p.num} className="row" delay={i * 60} y={40}>
-              <span className="row__num">{p.num}</span>
-              <h3 className="row__title">{p.title}</h3>
-              <p className="row__desc">{p.desc}</p>
-              <span className="row__icon" aria-hidden="true">
-                <ArrowUpRight />
-              </span>
-            </Reveal>
-          ))}
-        </div>
+        <ServicesSlider items={PILLARS} />
+        <p className="svc-hint" aria-hidden="true">
+          Drag to explore →
+        </p>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import WhatWeBuild from "@/components/WhatWeBuild";
 import FeaturedWork from "@/components/FeaturedWork";
+import ScrollStage from "@/components/ScrollStage";
 import Approach from "@/components/Approach";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
@@ -31,8 +32,12 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Marquee items={MARQUEE} />
-        <WhatWeBuild />
-        <FeaturedWork />
+        <ScrollStage>
+          <WhatWeBuild />
+        </ScrollStage>
+        <ScrollStage>
+          <FeaturedWork />
+        </ScrollStage>
         <Approach />
         <About />
         <Contact />
