@@ -10,6 +10,8 @@ const nextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
+    // Allowlist required in Next 16; covers (90) and lightbox (95) need these.
+    qualities: [75, 90, 95],
   },
 };
 

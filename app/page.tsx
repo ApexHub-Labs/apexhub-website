@@ -35,9 +35,7 @@ export default function Home() {
         <ScrollStage>
           <WhatWeBuild />
         </ScrollStage>
-        <ScrollStage>
-          <FeaturedWork />
-        </ScrollStage>
+        <FeaturedWork />
         <Approach />
         <About />
         <Contact />

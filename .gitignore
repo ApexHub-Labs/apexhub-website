@@ -34,3 +34,15 @@ next-env.d.ts
 
 # submissions (local dev fallback for contact form)
 /data/submissions.json
+
+# raw source screenshots — converted WebP copies live in /public/projects
+/APA LMS Screenshots/
+/APA screenshoots/
+/Edu connect screenshots/
+/Maderia app screenshots/
+/Safelight Screenshots/
+/Soso ScreenShots/
+/WorkLink Ethiopia/
+/cover images/
+/main images.zip
+/main images.png

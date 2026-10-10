@@ -1,200 +1,136 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { useState } from "react";
+import Image from "next/image";
+import { motion } from "motion/react";
+import Lightbox from "./Lightbox";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
 import { ArrowUpRight } from "./icons";
+import {
+  featured,
+  projects,
+  type Project,
+  type ProjectImage,
+  type ProjectLink,
+} from "@/data/projects";
 
-type Media = { type: "image" | "video"; src: string; poster?: string };
+type OpenFn = (images: ProjectImage[], title: string) => void;
 
-type Project = {
-  title: string;
-  tag: string;
-  monogram: string;
-  year: string;
-  /** Drop a screenshot/clip at /public/work/<file> and set it here to replace
-   *  the typographic placeholder. Left undefined until real assets exist. */
-  media?: Media;
-  href?: string;
-};
-
-const PROJECTS: Project[] = [
-  {
-    title: "American Prep Academy",
-    tag: "Website Development",
-    monogram: "APA",
-    year: "Education",
-  },
-  {
-    title: "American Prep Academy",
-    tag: "LMS Development",
-    monogram: "LMS",
-    year: "Education",
-  },
-  {
-    title: "SafeLight Initiative",
-    tag: "Digital Presence & Website",
-    monogram: "SL",
-    year: "Non-Profit",
-  },
-];
-
-/** Renders project media, or the typographic placeholder until assets land. */
-function CardMedia({ project }: { project: Project }) {
-  if (project.media?.type === "image") {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img className="work-card__img" src={project.media.src} alt="" />;
+function LinkView({ link }: { link: ProjectLink | null }) {
+  if (!link) return null;
+  if (!link.href) {
+    return <span className="proj-link proj-link--static">{link.label}</span>;
   }
-  if (project.media?.type === "video") {
-    return (
-      <video
-        className="work-card__img"
-        src={project.media.src}
-        poster={project.media.poster}
-        muted
-        loop
-        autoPlay
-        playsInline
-      />
-    );
-  }
-  return <span className="work-card__mono">{project.monogram}</span>;
+  return (
+    <a
+      className="proj-link"
+      href={link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {link.label}
+      <ArrowUpRight size={16} />
+    </a>
+  );
 }
 
-function WorkCard({
+function ProjectCard({
   project,
-  index,
   onOpen,
+  heading = "h3",
+  className = "",
+  index = 0,
 }: {
   project: Project;
-  index: number;
-  onOpen: () => void;
+  onOpen: OpenFn;
+  heading?: "h3" | "h4";
+  className?: string;
+  index?: number;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  // media drifts within its frame as the card passes the viewport
-  const mediaY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
-
+  const cover = project.cover;
+  const Heading = heading;
   return (
     <motion.article
-      ref={ref}
-      className="work-card"
-      initial={{ opacity: 0, y: 48 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 48 }}
-      viewport={{ once: false, amount: 0.25, margin: "0px 0px -8% 0px" }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      onClick={onOpen}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onOpen();
-        }
+      className={`proj-card ${className}`}
+      initial={{ opacity: 0, y: 48, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      viewport={{ once: true, amount: 0.25, margin: "0px 0px -10% 0px" }}
+      transition={{
+        duration: 0.75,
+        ease: [0.16, 1, 0.3, 1],
+        delay: Math.min(index * 0.09, 0.4),
       }}
-      aria-label={`${project.title} — ${project.tag}. Open preview.`}
     >
-      <div className="work-card__frame">
-        <motion.div className="work-card__media" style={{ y: mediaY }}>
-          <CardMedia project={project} />
-        </motion.div>
-        <span className="work-card__open" aria-hidden="true">
-          <ArrowUpRight />
+      <button
+        type="button"
+        className="proj-card__cover"
+        onClick={() => onOpen(project.images, project.name)}
+        aria-label={`Open ${project.name} gallery, ${project.images.length} screenshots`}
+      >
+        {/* blurred fill so the frame reads full-bleed behind the full image */}
+        <Image
+          src={cover.src}
+          alt=""
+          aria-hidden
+          fill
+          sizes="20vw"
+          quality={75}
+          className="proj-card__bg"
+        />
+        {/* the full, uncropped screenshot */}
+        <Image
+          src={cover.src}
+          alt={cover.alt}
+          fill
+          sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 42vw"
+          quality={90}
+          className="proj-card__img"
+        />
+        {project.badge && (
+          <span className="proj-card__badge">{project.badge}</span>
+        )}
+        <span className="proj-card__overlay" aria-hidden="true">
+          <span className="proj-card__view">
+            View gallery <ArrowUpRight size={16} />
+          </span>
         </span>
-      </div>
-      <div className="work-card__foot">
-        <span className="work-card__index">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <h3 className="work-card__title">{project.title}</h3>
-        <span className="work-card__meta">
-          <span className="work-card__cat">{project.year}</span>
-          <span className="work-card__tag">{project.tag}</span>
-        </span>
+      </button>
+
+      <div className="proj-card__body">
+        <Heading className="proj-card__name">{project.name}</Heading>
+        <p className="proj-card__type">{project.type}</p>
+        <p className="proj-card__summary">{project.summary}</p>
+        <ul className="proj-tags">
+          {project.tech.map((t) => (
+            <li key={t} className="proj-tag">
+              {t}
+            </li>
+          ))}
+        </ul>
+        <LinkView link={project.link} />
       </div>
     </motion.article>
   );
 }
 
-function WorkModal({
-  project,
-  onClose,
-}: {
-  project: Project;
-  onClose: () => void;
-}) {
-  return (
-    <motion.div
-      className="work-modal"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-label={`${project.title} preview`}
-    >
-      <div className="work-modal__backdrop" />
-      <motion.div
-        className="work-modal__panel"
-        initial={{ scale: 0.92, y: 40, opacity: 0 }}
-        animate={{ scale: 1, y: 0, opacity: 1 }}
-        exit={{ scale: 0.95, y: 20, opacity: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button className="work-modal__close" onClick={onClose} aria-label="Close">
-          ✕
-        </button>
-        <div className="work-modal__media">
-          <CardMedia project={project} />
-        </div>
-        <div className="work-modal__info">
-          <div>
-            <span className="eyebrow">{project.year}</span>
-            <h3 className="head work-modal__title">{project.title}</h3>
-          </div>
-          <span className="work-modal__tag">{project.tag}</span>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function FeaturedWork() {
-  const [open, setOpen] = useState<number | null>(null);
-  const [mounted, setMounted] = useState(false);
+  const [gallery, setGallery] = useState<{
+    images: ProjectImage[];
+    title: string;
+  } | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  const onOpen: OpenFn = (images, title) => setGallery({ images, title });
 
-  useEffect(() => {
-    if (open === null) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
-    document.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  const INITIAL = 4;
+  const visible = showAll ? projects : projects.slice(0, INITIAL);
+  const remaining = projects.length - INITIAL;
 
   return (
-    <section className="section work" id="work">
+    <section className="section projects" id="work">
       <div className="container">
-        <div className="sec-head">
+        <header className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
               03 — Selected Projects
@@ -209,29 +145,62 @@ export default function FeaturedWork() {
             A sample of what we&apos;ve built with the organizations we partner
             with.
           </Reveal>
-        </div>
+        </header>
 
-        <div className="work-grid">
-          {PROJECTS.map((p, i) => (
-            <WorkCard
-              key={`${p.title}-${p.tag}`}
+        {/* Featured case study: American Prep Academy (website + platform) */}
+        <article className="proj-feature">
+          <div className="proj-feature__intro">
+            <h3 className="proj-feature__name">{featured.name}</h3>
+            <p className="proj-feature__type">{featured.type}</p>
+            <p className="proj-feature__summary">{featured.summary}</p>
+          </div>
+          <div className="proj-feature__deliverables">
+            {featured.deliverables.map((d, i) => (
+              <ProjectCard
+                key={d.slug}
+                project={d}
+                onOpen={onOpen}
+                heading="h4"
+                index={i}
+              />
+            ))}
+          </div>
+        </article>
+
+        {/* Two per row; the rest reveal on demand */}
+        <div className="proj-grid">
+          {visible.map((p, i) => (
+            <ProjectCard
+              key={p.slug}
               project={p}
-              index={i}
-              onOpen={() => setOpen(i)}
+              onOpen={onOpen}
+              index={i < INITIAL ? i : 0}
             />
           ))}
         </div>
+
+        {!showAll && remaining > 0 && (
+          <div className="proj-more">
+            <button
+              type="button"
+              className="btn btn--ghost"
+              onClick={() => setShowAll(true)}
+            >
+              More projects
+              <span className="proj-more__count">({remaining})</span>
+            </button>
+          </div>
+        )}
       </div>
 
-      {mounted &&
-        createPortal(
-          <AnimatePresence>
-            {open !== null && (
-              <WorkModal project={PROJECTS[open]} onClose={() => setOpen(null)} />
-            )}
-          </AnimatePresence>,
-          document.body
-        )}
+      {gallery && (
+        <Lightbox
+          images={gallery.images}
+          startIndex={0}
+          title={gallery.title}
+          onClose={() => setGallery(null)}
+        />
+      )}
     </section>
   );
 }
