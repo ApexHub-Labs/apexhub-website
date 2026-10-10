@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import Script from "next/script";
 import Providers from "@/components/Providers";
 import "./globals.css";
+
+const GA_ID = "G-BG8SY6FVFS";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -92,6 +94,18 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body>
+        {/* Google tag (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+        </Script>
+
         <a className="skip-link" href="#main">
           Skip to content
         </a>
@@ -101,7 +115,6 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </body>
-      <GoogleAnalytics gaId="G-BG8SY6FVFS" />
     </html>
   );
 }
