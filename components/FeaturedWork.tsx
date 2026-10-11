@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import Lightbox from "./Lightbox";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
+import { track } from "@/lib/analytics";
 import { ArrowUpRight } from "./icons";
 import {
   featured,
@@ -17,7 +18,21 @@ import {
 
 type OpenFn = (images: ProjectImage[], title: string) => void;
 
-function LinkView({ link }: { link: ProjectLink | null }) {
+// Map a link's display label to the GA `link_type` taxonomy.
+function linkType(label: string): string {
+  const l = label.toLowerCase();
+  if (l.includes("source")) return "view_source";
+  if (l.includes("case")) return "case_study";
+  return "visit_site";
+}
+
+function LinkView({
+  link,
+  projectName,
+}: {
+  link: ProjectLink | null;
+  projectName: string;
+}) {
   if (!link) return null;
   if (!link.href) {
     return <span className="proj-link proj-link--static">{link.label}</span>;
@@ -28,6 +43,12 @@ function LinkView({ link }: { link: ProjectLink | null }) {
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() =>
+        track("project_link_click", {
+          project_name: projectName,
+          link_type: linkType(link.label),
+        })
+      }
     >
       {link.label}
       <ArrowUpRight size={16} />
@@ -108,7 +129,7 @@ function ProjectCard({
             </li>
           ))}
         </ul>
-        <LinkView link={project.link} />
+        <LinkView link={project.link} projectName={project.name} />
       </div>
     </motion.article>
   );
@@ -121,7 +142,10 @@ export default function FeaturedWork() {
   } | null>(null);
   const [showAll, setShowAll] = useState(false);
 
-  const onOpen: OpenFn = (images, title) => setGallery({ images, title });
+  const onOpen: OpenFn = (images, title) => {
+    setGallery({ images, title });
+    track("project_gallery_open", { project_name: title });
+  };
 
   const INITIAL = 4;
   const visible = showAll ? projects : projects.slice(0, INITIAL);

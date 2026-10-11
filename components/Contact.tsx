@@ -4,6 +4,7 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
 import Magnetic from "./Magnetic";
+import { track } from "@/lib/analytics";
 import { ArrowRight, ArrowUpRight } from "./icons";
 
 const NEEDS = [
@@ -59,6 +60,7 @@ export default function Contact() {
         body: JSON.stringify(Object.fromEntries(data.entries())),
       });
       if (!res.ok) throw new Error("Request failed");
+      track("generate_lead", { form_name: "contact" });
       form.reset();
       setDone(true);
       setStatus("idle");

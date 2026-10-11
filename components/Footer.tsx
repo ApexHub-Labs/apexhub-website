@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
+import CtaLink from "./CtaLink";
 import { ArrowUpRight } from "./icons";
 
 export default function Footer() {
@@ -8,13 +9,18 @@ export default function Footer() {
     <footer className="footer" id="footer">
       <div className="container">
         <Reveal className="footer__cta" delay={0}>
-          <a href="#contact" className="footer__cta-link">
+          <CtaLink
+            href="#contact"
+            className="footer__cta-link"
+            ctaLabel="Start the Conversation"
+            ctaLocation="footer"
+          >
             <span className="footer__cta-kicker eyebrow">Let&apos;s build</span>
             <span className="head footer__cta-title">
               Start the Conversation
               <ArrowUpRight size={48} />
             </span>
-          </a>
+          </CtaLink>
         </Reveal>
 
         <div className="footer__mark" aria-hidden="true">

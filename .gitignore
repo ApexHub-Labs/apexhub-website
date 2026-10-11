@@ -46,3 +46,8 @@ next-env.d.ts
 /cover images/
 /main images.zip
 /main images.png
+
+.vercel
+.env*
+# …but keep the committed template
+!.env.example

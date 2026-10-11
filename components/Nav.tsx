@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
+import { track } from "@/lib/analytics";
 import { ArrowRight } from "./icons";
 
 const LINKS = [
@@ -61,7 +62,13 @@ export default function Nav() {
               <a
                 className="btn"
                 href="#contact"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  track("cta_click", {
+                    cta_label: "Start a Project",
+                    cta_location: "nav",
+                  });
+                }}
               >
                 Start a Project <ArrowRight />
               </a>
@@ -71,7 +78,16 @@ export default function Nav() {
 
         <div className="nav__cta--desktop">
           <Magnetic strength={0.4}>
-            <a className="btn" href="#contact">
+            <a
+              className="btn"
+              href="#contact"
+              onClick={() =>
+                track("cta_click", {
+                  cta_label: "Start a Project",
+                  cta_location: "nav",
+                })
+              }
+            >
               Start a Project <ArrowRight />
             </a>
           </Magnetic>

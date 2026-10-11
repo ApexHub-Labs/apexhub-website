@@ -1,10 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
-import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import Providers from "@/components/Providers";
 import "./globals.css";
-
-const GA_ID = "G-BG8SY6FVFS";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,7 +11,23 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const SITE_URL = "https://apexhublabs.com";
+// Public address the site is actually served from. Drives metadataBase, so
+// canonical / OG URLs always match the live host (vercel.app today, the real
+// domain later). Falls back to the current preview URL if the env is missing.
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://apexhub-labs.vercel.app";
+
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GOOGLE_SITE_VERIFICATION =
+  process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
+// Only send analytics from the real production deployment. Preview builds and
+// local dev stay off even though the env var is present there.
+const gaEnabled =
+  !!GA_ID &&
+  (process.env.NEXT_PUBLIC_VERCEL_ENV
+    ? process.env.NEXT_PUBLIC_VERCEL_ENV === "production"
+    : process.env.NODE_ENV === "production");
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -40,7 +54,12 @@ export const metadata: Metadata = {
   authors: [{ name: "ApexHub Labs" }],
   creator: "ApexHub Labs",
   applicationName: "ApexHub Labs",
+  // Resolved against metadataBase, so the canonical always matches the live
+  // host. (Next normalizes the root to the bare origin, no trailing slash.)
   alternates: { canonical: "/" },
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
   openGraph: {
     type: "website",
     url: SITE_URL,
@@ -94,18 +113,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body>
-        {/* Google tag (gtag.js) */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${GA_ID}');`}
-        </Script>
-
         <a className="skip-link" href="#main">
           Skip to content
         </a>
@@ -115,6 +122,7 @@ gtag('config', '${GA_ID}');`}
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </body>
+      {gaEnabled && GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }

@@ -3,6 +3,7 @@ import SplitText from "./SplitText";
 import Parallax from "./Parallax";
 import Magnetic from "./Magnetic";
 import HeroParticles from "./HeroParticles";
+import CtaLink from "./CtaLink";
 import { ArrowRight, ArrowDown } from "./icons";
 
 export default function Hero() {
@@ -51,14 +52,24 @@ export default function Hero() {
 
           <Reveal className="hero__cta" delay={620}>
             <Magnetic strength={0.35}>
-              <a className="btn" href="#contact">
+              <CtaLink
+                className="btn"
+                href="#contact"
+                ctaLabel="Start a Project"
+                ctaLocation="hero"
+              >
                 Start a Project <ArrowRight />
-              </a>
+              </CtaLink>
             </Magnetic>
             <Magnetic strength={0.35}>
-              <a className="btn btn--ghost" href="#work">
+              <CtaLink
+                className="btn btn--ghost"
+                href="#work"
+                ctaLabel="Explore Our Work"
+                ctaLocation="hero"
+              >
                 Explore Our Work <ArrowRight />
-              </a>
+              </CtaLink>
             </Magnetic>
           </Reveal>
         </div>
