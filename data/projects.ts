@@ -290,7 +290,7 @@ export const projects: Project[] = [
   },
   {
     slug: "working",
-    name: "Working",
+    name: "WorkLink",
     type: "Job platform connecting job seekers and employers",
     summary:
       "Employers post jobs and manage applicants from their own dashboard, job seekers find and apply to roles, and an admin panel runs the whole platform. Built for subscription plans on both sides.",
