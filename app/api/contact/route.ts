@@ -16,9 +16,9 @@ type Payload = {
 /**
  * Contact form handler.
  *
- * Validates the submission server-side. By default it logs the enquiry so the
- * site works out of the box. To deliver emails, wire an email provider
- * (Resend, SendGrid, Postmark, SMTP, …) where indicated below.
+ * Validates the submission server-side, then emails it to CONTACT_TO_EMAIL
+ * through Resend (RESEND_API_KEY). CONTACT_FROM_EMAIL is optional and only
+ * works once the sending domain is verified in Resend.
  */
 export async function POST(request: Request) {
   let body: Payload;
@@ -55,17 +55,54 @@ export async function POST(request: Request) {
   };
 
   // --- Delivery -----------------------------------------------------------
-  // Default behaviour: record the enquiry to the server log.
-  // Replace this block with your email/CRM integration, e.g.:
-  //
-  //   await resend.emails.send({
-  //     from: "site@apexhublabs.com",
-  //     to: "hello@apexhublabs.com",
-  //     subject: `New enquiry — ${submission.name}`,
-  //     text: JSON.stringify(submission, null, 2),
-  //   });
-  //
+  // Emails the enquiry via Resend. Reply-To is the visitor, so hitting Reply
+  // answers them directly. The log line is kept as a backup record.
   console.log("[contact] new submission:", submission);
+
+  const apiKey = process.env.RESEND_API_KEY;
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (!apiKey || !to) {
+    console.error("[contact] RESEND_API_KEY or CONTACT_TO_EMAIL is not set");
+    return NextResponse.json(
+      { error: "Email delivery is not configured." },
+      { status: 500 }
+    );
+  }
+
+  const text = [
+    `Name: ${submission.name}`,
+    `Company: ${submission.company || "—"}`,
+    `Email: ${submission.email}`,
+    `Phone: ${submission.phone || "—"}`,
+    `Need: ${submission.need}`,
+    "",
+    submission.message,
+    "",
+    `Received: ${submission.receivedAt}`,
+  ].join("\n");
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: process.env.CONTACT_FROM_EMAIL || "ApexHub Labs <onboarding@resend.dev>",
+      to: [to],
+      reply_to: submission.email,
+      subject: `New enquiry — ${submission.name}`,
+      text,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error("[contact] Resend error:", res.status, await res.text());
+    return NextResponse.json(
+      { error: "Could not send your message." },
+      { status: 502 }
+    );
+  }
 
   return NextResponse.json({ ok: true }, { status: 200 });
 }
