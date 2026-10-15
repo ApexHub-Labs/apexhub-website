@@ -299,9 +299,16 @@
 }
 
 @media (max-width: 780px) {
-  /* Logo renders bottom-center on narrow screens — keep the copy up top */
+  /* Logo renders bottom-center on narrow screens — keep the copy up top.
+     The logo's size and position scale with the hero's height, so give the
+     hero a floor tall enough that, nudged down, it clears the CTAs. */
   .hero {
     align-items: flex-start;
+    height: auto;
+    min-height: max(100svh, 52rem);
+  }
+  .hero__particles {
+    transform: translateY(3%);
   }
   .hero__foot {
     grid-template-columns: 1fr;
@@ -1014,7 +1021,8 @@
   font-size: var(--fs-label);
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--muted);
+  /* Brighter than --muted so the form reads clearly on black */
+  color: rgba(255, 255, 255, 0.82);
   font-weight: 500;
 }
 .field label .req {
@@ -1025,7 +1033,7 @@
 .field textarea {
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--line-strong);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
   padding: 0.75rem 0;
   font-size: var(--fs-body);
   letter-spacing: 0.02em;
@@ -1058,7 +1066,7 @@
 }
 .field input::placeholder,
 .field textarea::placeholder {
-  color: color-mix(in srgb, var(--muted) 85%, transparent);
+  color: rgba(255, 255, 255, 0.6);
 }
 .field[data-error="true"] input,
 .field[data-error="true"] select,
@@ -1084,7 +1092,7 @@
   font-size: var(--fs-label);
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.82);
 }
 .form__status[data-tone="error"] {
   color: var(--fg);
@@ -1209,6 +1217,15 @@
   color: var(--muted);
 }
 @media (max-width: 720px) {
+  /* Fixed 48px arrow overflowed the edge on phones; scale it with the type */
+  .footer__cta-title {
+    gap: 0.5rem;
+    font-size: clamp(1.5rem, 8.5vw, 2.6rem);
+  }
+  .footer__cta-title svg {
+    width: 0.8em;
+    height: 0.8em;
+  }
   .footer__grid {
     grid-template-columns: 1fr 1fr;
   }
