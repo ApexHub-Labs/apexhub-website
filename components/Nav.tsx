@@ -11,9 +11,10 @@ import { ArrowRight } from "./icons";
 // `index` is the number shown on that section's own label.
 const LINKS = [
   { id: "services", label: "Services", index: "02" },
-  { id: "work", label: "Work", index: "03" },
-  { id: "about", label: "About", index: "05" },
-  { id: "contact", label: "Contact", index: "06" },
+  { id: "pricing", label: "Pricing", index: "03" },
+  { id: "work", label: "Work", index: "04" },
+  { id: "about", label: "About", index: "06" },
+  { id: "contact", label: "Contact", index: "07" },
 ];
 
 export default function Nav() {

@@ -167,7 +167,7 @@ export default function FeaturedWork() {
         <header className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              <span className="sec-num">03</span> — Selected Projects
+              <span className="sec-num">04</span> — Selected Projects
             </Reveal>
             <SplitText
               as="h2"

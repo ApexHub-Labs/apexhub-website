@@ -46,6 +46,7 @@ export default function Footer() {
           <nav className="footer__col" aria-label="Sitemap">
             <span className="footer__col-head eyebrow">Index</span>
             <SiteLink href="/#services">Services</SiteLink>
+            <SiteLink href="/#pricing">Pricing</SiteLink>
             <SiteLink href="/#work">Work</SiteLink>
             <SiteLink href="/#about">About</SiteLink>
             <SiteLink href="/#contact">Contact</SiteLink>

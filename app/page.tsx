@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import ProofStrip from "@/components/ProofStrip";
 import Marquee from "@/components/Marquee";
 import WhatWeBuild from "@/components/WhatWeBuild";
+import Packages from "@/components/Packages";
 import FeaturedWork from "@/components/FeaturedWork";
 import ScrollStage from "@/components/ScrollStage";
 import Approach from "@/components/Approach";
@@ -37,6 +38,7 @@ export default function Home() {
         <ScrollStage>
           <WhatWeBuild />
         </ScrollStage>
+        <Packages />
         <FeaturedWork />
         <Approach />
         <About />

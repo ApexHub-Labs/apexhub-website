@@ -8,7 +8,7 @@ export default function About() {
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              <span className="sec-num">05</span> — Who We Are
+              <span className="sec-num">06</span> — Who We Are
             </Reveal>
             <SplitText
               as="h2"

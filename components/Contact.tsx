@@ -77,7 +77,7 @@ export default function Contact() {
     <section className="section" id="contact">
       <div className="container">
         <Reveal className="eyebrow contact__index" delay={0}>
-          <span className="sec-num">06</span> — Start a Conversation
+          <span className="sec-num">07</span> — Start a Conversation
         </Reveal>
         <div className="contact__grid">
           <div>
