@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
 
@@ -48,10 +49,21 @@ export default function About() {
         </div>
 
         <div className="about__grid founder">
-          <Reveal delay={0}>
-            <span className="eyebrow">Founder</span>
-            <h3 className="founder__name">Michael Behailu</h3>
-            <p className="founder__role">Founder and Lead Engineer</p>
+          <Reveal className="founder__id" delay={0}>
+            <div className="founder__photo">
+              <Image
+                src="/founder-michael-behailu.jpg"
+                alt="Michael Behailu, founder of ApexHub Labs"
+                width={1080}
+                height={1350}
+                sizes="(max-width: 820px) 60vw, 18vw"
+              />
+            </div>
+            <div>
+              <span className="eyebrow">Founder</span>
+              <h3 className="founder__name">Michael Behailu</h3>
+              <p className="founder__role">Founder and Lead Engineer</p>
+            </div>
           </Reveal>
           <Reveal className="about__body" delay={120}>
             <p>
