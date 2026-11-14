@@ -195,16 +195,12 @@
   color: var(--accent);
   margin-right: 0.4rem;
 }
+/* A full sentence now, so it runs smaller and looser than the old three
+   one-word lines while filling the same block of the left rail. */
 .hero__title {
-  font-size: clamp(2rem, 5vw, 4.5rem);
-  line-height: 0.92;
-}
-.hero__line {
-  display: block;
-  overflow: hidden;
-}
-.hero__line--muted {
-  color: var(--muted);
+  font-size: clamp(1.6rem, 3.3vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: 0.04em;
 }
 .hero__foot {
   display: flex;

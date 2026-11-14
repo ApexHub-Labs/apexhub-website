@@ -11,7 +11,32 @@ type SplitTextProps = {
   /** per-word stagger (seconds) */
   stagger?: number;
   once?: boolean;
+  /** a phrase inside `text` to set on the highlighter mark (`.hl`); it stays
+   *  together as one unit and rises like a single word */
+  highlight?: string;
 };
+
+type Token = { text: string; mark?: boolean; tail?: string };
+
+// Words, with the highlighted phrase (if any) kept whole. Punctuation that
+// touches the phrase rides along as `tail`, outside the mark.
+function tokenize(text: string, highlight?: string): Token[] {
+  const words = (s: string) =>
+    s
+      .split(" ")
+      .filter(Boolean)
+      .map((w) => ({ text: w }));
+  const at = highlight ? text.indexOf(highlight) : -1;
+  if (!highlight || at < 0) return words(text);
+
+  const rest = text.slice(at + highlight.length);
+  const tail = rest.split(" ")[0];
+  return [
+    ...words(text.slice(0, at)),
+    { text: highlight, mark: true, tail },
+    ...words(rest.slice(tail.length)),
+  ];
+}
 
 /**
  * Editorial word-by-word mask reveal: each word sits in an overflow-hidden
@@ -24,8 +49,9 @@ export default function SplitText({
   delay = 0,
   stagger = 0.055,
   once = true,
+  highlight,
 }: SplitTextProps) {
-  const words = text.split(" ");
+  const tokens = tokenize(text, highlight);
 
   const container: Variants = {
     hidden: {},
@@ -53,9 +79,9 @@ export default function SplitText({
       variants={container}
       aria-label={text}
     >
-      {words.map((w, i) => (
+      {tokens.map((t, i) => (
         <span
-          key={`${w}-${i}`}
+          key={`${t.text}-${i}`}
           aria-hidden="true"
           style={{
             display: "inline-block",
@@ -67,8 +93,15 @@ export default function SplitText({
             variants={word}
             style={{ display: "inline-block", willChange: "transform" }}
           >
-            {w}
-            {i < words.length - 1 ? " " : ""}
+            {t.mark ? (
+              <>
+                <span className="hl">{t.text}</span>
+                {t.tail}
+              </>
+            ) : (
+              t.text
+            )}
+            {i < tokens.length - 1 ? " " : ""}
           </motion.span>
         </span>
       ))}
