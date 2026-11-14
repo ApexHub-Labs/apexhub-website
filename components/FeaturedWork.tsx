@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import Lightbox from "./Lightbox";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
 import { track } from "@/lib/analytics";
-import { ArrowUpRight } from "./icons";
+import { ArrowRight, ArrowUpRight } from "./icons";
 import {
   featured,
   projects,
@@ -37,18 +38,27 @@ function LinkView({
   if (!link.href) {
     return <span className="proj-link proj-link--static">{link.label}</span>;
   }
+  const onClick = () =>
+    track("project_link_click", {
+      project_name: projectName,
+      link_type: linkType(link.label),
+    });
+  // A page on this site (the case study): same tab, client-side navigation.
+  if (link.href.startsWith("/")) {
+    return (
+      <Link className="proj-link" href={link.href} onClick={onClick}>
+        {link.label}
+        <ArrowRight size={14} />
+      </Link>
+    );
+  }
   return (
     <a
       className="proj-link"
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      onClick={() =>
-        track("project_link_click", {
-          project_name: projectName,
-          link_type: linkType(link.label),
-        })
-      }
+      onClick={onClick}
     >
       {link.label}
       <ArrowUpRight size={16} />

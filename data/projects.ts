@@ -1,8 +1,10 @@
 // Featured Projects content + screenshot galleries.
 // Images live in /public/projects/<slug>/ (WebP). images[0] is the cover.
 // width/height are the real pixel dimensions, passed to next/image so there's
-// no layout shift. A link with an empty href renders as a plain label
-// (e.g. "Case study" for the login-gated LMS).
+// no layout shift. A link whose href starts with "/" is a page on this site
+// (the case study); an empty href renders as a plain label.
+
+import { CASE_STUDY_PATH } from "@/lib/site";
 
 export type ProjectImage = {
   src: string;
@@ -114,7 +116,7 @@ export const featured: FeaturedProject = {
       summary:
         "Took the provider's courses, payments and live classes fully online. Students enroll, pay, attend live sessions and track progress in one place.",
       tech: ["Next.js", "PostgreSQL", "Azure"],
-      link: { href: "", label: "Case study" },
+      link: { href: CASE_STUDY_PATH, label: "Case study" },
       cover: {
         src: "/projects/apa-lms/main.webp",
         alt: "Admin dashboard with totals for students, teachers and courses and charts for enrollment growth and weekly sessions",
