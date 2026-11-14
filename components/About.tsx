@@ -46,6 +46,21 @@ export default function About() {
             </p>
           </Reveal>
         </div>
+
+        <div className="about__grid founder">
+          <Reveal delay={0}>
+            <span className="eyebrow">Founder</span>
+            <h3 className="founder__name">Michael Behailu</h3>
+            <p className="founder__role">Founder and Lead Engineer</p>
+          </Reveal>
+          <Reveal className="about__body" delay={120}>
+            <p>
+              Michael leads ApexHub Labs from Addis Ababa. He was project
+              manager and lead software developer on the American Prep Academy
+              website and learning platform.
+            </p>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
