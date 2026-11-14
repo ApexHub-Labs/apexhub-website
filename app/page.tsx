@@ -13,9 +13,9 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const MARQUEE = [
-  "Digital Presence",
   "Business Systems",
   "Software Products",
+  "Digital Presence",
   "Innovation",
   "Web",
   "Mobile",

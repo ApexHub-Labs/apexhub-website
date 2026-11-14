@@ -8,9 +8,9 @@ import { track } from "@/lib/analytics";
 import { ArrowRight, ArrowUpRight } from "./icons";
 
 const NEEDS = [
-  "Digital Presence (website, branding, marketing)",
   "Business System (LMS, CRM, ERP, automation)",
   "Software Product (web, mobile, SaaS, MVP)",
+  "Digital Presence (website, branding, marketing)",
   "Innovation (AI, automation, emerging tech)",
   "Not sure yet — let's talk",
 ];
