@@ -25,17 +25,18 @@ export default function Lightbox({
   title: string;
   onClose: () => void;
 }) {
-  const [i, setI] = useState(startIndex);
-  const dir = useRef(0);
+  // Current slide plus the direction it was reached from (drives the slide-in).
+  const [{ i, dir }, setSlide] = useState({ i: startIndex, dir: 0 });
   const rootRef = useRef<HTMLDivElement>(null);
 
   const prev = useCallback(() => {
-    dir.current = -1;
-    setI((v) => (v - 1 + images.length) % images.length);
+    setSlide((s) => ({
+      i: (s.i - 1 + images.length) % images.length,
+      dir: -1,
+    }));
   }, [images.length]);
   const next = useCallback(() => {
-    dir.current = 1;
-    setI((v) => (v + 1) % images.length);
+    setSlide((s) => ({ i: (s.i + 1) % images.length, dir: 1 }));
   }, [images.length]);
 
   useEffect(() => {
@@ -125,11 +126,11 @@ export default function Lightbox({
       )}
 
       <div className="lightbox__figwrap">
-        <AnimatePresence mode="wait" custom={dir.current}>
+        <AnimatePresence mode="wait" custom={dir}>
           <motion.figure
             key={img.src}
             className="lightbox__figure"
-            custom={dir.current}
+            custom={dir}
             variants={figVariants}
             initial="enter"
             animate="center"
