@@ -67,12 +67,17 @@
   bottom: -3px;
   width: 0;
   height: 1px;
-  background: var(--white);
+  background: var(--accent);
   transition: width 0.3s var(--ease);
 }
 .nav__link:hover .nav__link-label::after,
-.nav__link:focus-visible .nav__link-label::after {
+.nav__link:focus-visible .nav__link-label::after,
+.nav__link[aria-current] .nav__link-label::after {
   width: 100%;
+}
+/* Active item: the section on screen (or the page you are on) */
+.nav__link[aria-current] .nav__link-index {
+  color: var(--accent);
 }
 .nav__toggle {
   display: none;
@@ -187,7 +192,7 @@
   margin-bottom: clamp(0.9rem, 2.2vh, 1.6rem);
 }
 .hero__kicker-mark {
-  color: var(--fg);
+  color: var(--accent);
   margin-right: 0.4rem;
 }
 .hero__title {
@@ -366,6 +371,14 @@
   --line: rgba(0, 0, 0, 0.14);
   --line-strong: rgba(0, 0, 0, 0.3);
   --bg-raise: rgba(0, 0, 0, 0.03);
+  /* The accent is unreadable on white (1.2:1), so focus rings go dark here
+     and the section number sits on a highlighter mark instead. */
+  --focus: #0b0b0c;
+}
+.section--light .sec-num {
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0.15em 0.4em 0.15em 0.55em;
 }
 .services {
   position: relative;
@@ -497,7 +510,7 @@
   box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.8);
 }
 .proj-card__cover:focus-visible {
-  outline: 2px solid var(--fg);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 /* blurred, dimmed copy that fills the letterbox so the frame looks full */
@@ -618,11 +631,13 @@
   text-transform: uppercase;
   color: var(--fg);
   border-bottom: 1px solid var(--line-strong);
-  transition: gap 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: gap 0.3s var(--ease), border-color 0.3s var(--ease),
+    color 0.3s var(--ease);
 }
 .proj-link:hover {
   gap: 0.7rem;
-  border-color: var(--fg);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .proj-link--static {
   color: var(--muted);
@@ -631,6 +646,8 @@
 }
 .proj-link--static:hover {
   gap: 0.4rem;
+  color: var(--muted);
+  border-color: var(--line-strong);
 }
 
 /* Featured case study (American Prep: website + platform) */
@@ -709,6 +726,8 @@
 
 /* Lightbox gallery */
 .lightbox {
+  /* Controls sit over project screenshots: keep them white, no accent */
+  --focus: var(--white);
   position: fixed;
   inset: 0;
   z-index: 200;
@@ -994,7 +1013,7 @@
   bottom: -3px;
   width: 100%;
   height: 1px;
-  background: var(--white);
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s var(--ease);
@@ -1062,7 +1081,7 @@
 .field select:focus,
 .field textarea:focus {
   outline: none;
-  border-bottom-color: var(--white);
+  border-bottom-color: var(--focus);
 }
 .field input::placeholder,
 .field textarea::placeholder {
@@ -1151,10 +1170,11 @@
 }
 .footer__cta-title svg {
   flex: none;
-  transition: transform 0.5s var(--ease-editorial);
+  transition: transform 0.5s var(--ease-editorial), color 0.3s var(--ease);
 }
 .footer__cta-link:hover .footer__cta-title svg {
   transform: translate(8px, -8px);
+  color: var(--accent);
 }
 .footer__mark {
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
@@ -1188,7 +1208,7 @@
   transition: color 0.3s var(--ease);
 }
 .footer__col a:hover {
-  color: var(--muted);
+  color: var(--accent);
 }
 .footer__col-head {
   margin-bottom: 0.4rem;
