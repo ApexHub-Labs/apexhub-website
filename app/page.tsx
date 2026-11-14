@@ -2,6 +2,7 @@ import "./sections.css";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import Hero from "@/components/Hero";
+import ProofStrip from "@/components/ProofStrip";
 import Marquee from "@/components/Marquee";
 import WhatWeBuild from "@/components/WhatWeBuild";
 import FeaturedWork from "@/components/FeaturedWork";
@@ -31,6 +32,7 @@ export default function Home() {
       <Nav />
       <main id="main">
         <Hero />
+        <ProofStrip />
         <Marquee items={MARQUEE} />
         <ScrollStage>
           <WhatWeBuild />
