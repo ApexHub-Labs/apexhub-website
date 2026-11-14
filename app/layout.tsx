@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Providers from "@/components/Providers";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -11,11 +12,9 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-// Public address the site is actually served from. Drives metadataBase, so
-// canonical / OG URLs always match the live host (vercel.app today, the real
-// domain later). Falls back to the current preview URL if the env is missing.
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://apexhub-labs.vercel.app";
+const TITLE = "ApexHub Labs — Websites and business systems for US businesses";
+const DESCRIPTION =
+  "ApexHub Labs builds websites and business systems for US businesses, from Addis Ababa. See our work for American Prep Academy, a US K-12 tutoring provider.";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GOOGLE_SITE_VERIFICATION =
@@ -32,16 +31,17 @@ const gaEnabled =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "ApexHub Labs — Build. Transform. Innovate.",
+    default: TITLE,
     template: "%s · ApexHub Labs",
   },
-  description:
-    "ApexHub Labs is a digital innovation company. We help organizations build their digital presence, create business systems, bring software products to life, and turn innovation into real-world solutions.",
+  description: DESCRIPTION,
   keywords: [
-    "digital innovation",
+    "websites for US businesses",
+    "business systems",
     "software development",
     "web development",
-    "business systems",
+    "learning platform",
+    "client portal",
     "LMS",
     "CRM",
     "ERP",
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
   authors: [{ name: "ApexHub Labs" }],
   creator: "ApexHub Labs",
   applicationName: "ApexHub Labs",
-  // Resolved against metadataBase, so the canonical always matches the live
-  // host. (Next normalizes the root to the bare origin, no trailing slash.)
+  // Resolved against metadataBase. (Next normalizes the root to the bare
+  // origin, no trailing slash.)
   alternates: { canonical: "/" },
   ...(GOOGLE_SITE_VERIFICATION
     ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
@@ -63,17 +63,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "ApexHub Labs — Build. Transform. Innovate.",
-    description:
-      "A digital innovation and transformation partner. We build digital presence, business systems, software products and innovative solutions.",
+    title: TITLE,
+    description: DESCRIPTION,
     siteName: "ApexHub Labs",
     images: [{ url: "/og.svg", width: 1200, height: 630, alt: "ApexHub Labs" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ApexHub Labs — Build. Transform. Innovate.",
-    description:
-      "A digital innovation and transformation partner. Build. Transform. Innovate.",
+    title: TITLE,
+    description: DESCRIPTION,
     images: ["/og.svg"],
   },
   icons: {
@@ -97,8 +95,12 @@ const jsonLd = {
   url: SITE_URL,
   slogan: "Build. Transform. Innovate.",
   logo: `${SITE_URL}/logo-light.png`,
-  description:
-    "Digital innovation company helping organizations build digital presence, business systems, software products and innovative solutions.",
+  description: DESCRIPTION,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Addis Ababa",
+    addressCountry: "ET",
+  },
   sameAs: [
     "https://www.linkedin.com/company/apexhub-labs",
     "https://www.facebook.com/apexhublabs",
@@ -111,7 +113,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={montserrat.variable}>
+    <html
+      lang="en"
+      className={montserrat.variable}
+      // Keeps in-page anchor scrolling smooth while route changes (home ↔ case
+      // study) jump straight to the top, as Next did by default before v16.
+      data-scroll-behavior="smooth"
+    >
       <body>
         <a className="skip-link" href="#main">
           Skip to content
