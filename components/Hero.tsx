@@ -5,6 +5,7 @@ import Magnetic from "./Magnetic";
 import HeroParticles from "./HeroParticles";
 import CtaLink from "./CtaLink";
 import { ArrowRight, ArrowDown } from "./icons";
+import { BOOKING_URL } from "@/lib/site";
 
 export default function Hero() {
   return (
@@ -22,26 +23,18 @@ export default function Hero() {
       <div className="container hero__inner">
         <Reveal className="hero__kicker" delay={80}>
           <span className="eyebrow">
-            <span className="hero__kicker-mark">(01)</span> Digital Innovation
-            &amp; Transformation Studio
+            <span className="hero__kicker-mark">(01)</span> Build. Transform.
+            Innovate.
           </span>
         </Reveal>
 
-        <h1 className="head hero__title">
-          <SplitText as="span" text="Build." className="hero__line" />
-          <SplitText
-            as="span"
-            text="Transform."
-            className="hero__line"
-            delay={0.12}
-          />
-          <SplitText
-            as="span"
-            text="Innovate."
-            className="hero__line hero__line--muted"
-            delay={0.24}
-          />
-        </h1>
+        <SplitText
+          as="h1"
+          text="We build websites and business systems for US businesses, from Addis Ababa."
+          highlight="US businesses"
+          className="head hero__title"
+          stagger={0.04}
+        />
 
         <div className="hero__foot">
           <Reveal as="p" className="lead hero__lead" delay={520}>
@@ -54,21 +47,21 @@ export default function Hero() {
             <Magnetic strength={0.35}>
               <CtaLink
                 className="btn"
-                href="#contact"
-                ctaLabel="Start a Project"
+                href={BOOKING_URL}
+                ctaLabel="Book a free discovery call"
                 ctaLocation="hero"
               >
-                Start a Project <ArrowRight />
+                Book a free discovery call <ArrowRight />
               </CtaLink>
             </Magnetic>
             <Magnetic strength={0.35}>
               <CtaLink
                 className="btn btn--ghost"
-                href="#work"
-                ctaLabel="Explore Our Work"
+                href="/#work"
+                ctaLabel="See the work"
                 ctaLocation="hero"
               >
-                Explore Our Work <ArrowRight />
+                See the work <ArrowRight />
               </CtaLink>
             </Magnetic>
           </Reveal>

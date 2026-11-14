@@ -6,18 +6,18 @@ import ServicesSlider from "./ServicesSlider";
 const PILLARS = [
   {
     num: "01",
-    title: "Digital Presence",
-    desc: "Websites, branding, social media, digital marketing, graphic design and video.",
-  },
-  {
-    num: "02",
     title: "Business Systems",
     desc: "Information systems, LMS, CRM, ERP, automation and custom platforms.",
   },
   {
-    num: "03",
+    num: "02",
     title: "Software Products",
     desc: "Web apps, mobile apps, SaaS, MVPs and AI-powered products.",
+  },
+  {
+    num: "03",
+    title: "Digital Presence",
+    desc: "Websites, branding, social media, digital marketing, graphic design and video.",
   },
   {
     num: "04",
@@ -40,7 +40,7 @@ export default function WhatWeBuild() {
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              02 — Capabilities
+              <span className="sec-num">02</span> — Capabilities
             </Reveal>
             <SplitText
               as="h2"

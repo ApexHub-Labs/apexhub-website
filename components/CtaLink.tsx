@@ -1,5 +1,6 @@
 "use client";
 
+import SiteLink from "./SiteLink";
 import { track } from "@/lib/analytics";
 
 /**
@@ -20,7 +21,7 @@ export default function CtaLink({
   children: React.ReactNode;
 }) {
   return (
-    <a
+    <SiteLink
       className={className}
       href={href}
       onClick={() =>
@@ -28,6 +29,6 @@ export default function CtaLink({
       }
     >
       {children}
-    </a>
+    </SiteLink>
   );
 }

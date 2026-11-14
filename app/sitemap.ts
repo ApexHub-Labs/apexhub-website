@@ -1,10 +1,8 @@
 import type { MetadataRoute } from "next";
+import { CASE_STUDY_PATH, SITE_URL } from "@/lib/site";
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://apexhub-labs.vercel.app";
-
-// Single-page site: every section (services, work, about, contact…) is an
-// anchor on the home route, so the sitemap lists just the root.
+// The home route carries every section (services, pricing, work, about,
+// contact…) as anchors; the case study is the only other page.
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -12,6 +10,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
+    },
+    {
+      url: `${SITE_URL}${CASE_STUDY_PATH}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
   ];
 }

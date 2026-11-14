@@ -1,8 +1,10 @@
 // Featured Projects content + screenshot galleries.
 // Images live in /public/projects/<slug>/ (WebP). images[0] is the cover.
 // width/height are the real pixel dimensions, passed to next/image so there's
-// no layout shift. A link with an empty href renders as a plain label
-// (e.g. "Case study" for the login-gated LMS).
+// no layout shift. A link whose href starts with "/" is a page on this site
+// (the case study); an empty href renders as a plain label.
+
+import { CASE_STUDY_PATH } from "@/lib/site";
 
 export type ProjectImage = {
   src: string;
@@ -13,7 +15,7 @@ export type ProjectImage = {
 
 export type ProjectLink = {
   href: string; // empty string => not clickable (plain label)
-  label: string; // "Visit site" | "View source" | "Case study"
+  label: string; // "Visit site" | "View prototype" | "View source" | "Case study"
 };
 
 export type Project = {
@@ -47,7 +49,7 @@ export const featured: FeaturedProject = {
       name: "Website",
       type: "Public website",
       summary:
-        "Gave a growing education provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
+        "Gave a US K–12 tutoring provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
       tech: ["Next.js", "React", "SEO"],
       link: { href: "https://americanprepacademy.com", label: "Visit site" },
       cover: {
@@ -114,7 +116,7 @@ export const featured: FeaturedProject = {
       summary:
         "Took the provider's courses, payments and live classes fully online. Students enroll, pay, attend live sessions and track progress in one place.",
       tech: ["Next.js", "PostgreSQL", "Azure"],
-      link: { href: "", label: "Case study" },
+      link: { href: CASE_STUDY_PATH, label: "Case study" },
       cover: {
         src: "/projects/apa-lms/main.webp",
         alt: "Admin dashboard with totals for students, teachers and courses and charts for enrollment growth and weekly sessions",
@@ -198,14 +200,14 @@ export const projects: Project[] = [
     link: { href: "https://maderia-u537.vercel.app", label: "Visit site" },
     cover: {
       src: "/projects/maderia/main.webp",
-      alt: "Maderia 'Room Reservation App' promo with phone screens of hotel search and a map",
+      alt: "Maderia hotel booking app shown on two phones: hotel search by location and a map of hotels around Addis Ababa",
       width: 1350,
       height: 635,
     },
     images: [
       {
         src: "/projects/maderia/cover.webp",
-        alt: "Maderia 'Room Reservation App' promo with phone screens of hotel search and a map",
+        alt: "Maderia hotel booking app shown on two phones: hotel search by location and a map of hotels around Addis Ababa",
         width: 1748,
         height: 1240,
       },
@@ -295,7 +297,10 @@ export const projects: Project[] = [
     summary:
       "Employers post jobs and manage applicants from their own dashboard, job seekers find and apply to roles, and an admin panel runs the whole platform. Built for subscription plans on both sides.",
     tech: ["Next.js", "React", "PostgreSQL"],
-    link: { href: "https://prior-bet-02961929.figma.site/", label: "Visit site" },
+    link: {
+      href: "https://prior-bet-02961929.figma.site/",
+      label: "View prototype",
+    },
     badge: "Demo",
     cover: {
       src: "/projects/working/main.webp",

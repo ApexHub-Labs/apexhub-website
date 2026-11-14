@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import CtaLink from "./CtaLink";
+import SiteLink from "./SiteLink";
 import { ArrowUpRight } from "./icons";
 
 export default function Footer() {
@@ -10,7 +11,7 @@ export default function Footer() {
       <div className="container">
         <Reveal className="footer__cta" delay={0}>
           <CtaLink
-            href="#contact"
+            href="/#contact"
             className="footer__cta-link"
             ctaLabel="Start the Conversation"
             ctaLocation="footer"
@@ -23,10 +24,10 @@ export default function Footer() {
           </CtaLink>
         </Reveal>
 
-        <div className="footer__mark" aria-hidden="true">
+        <div className="footer__mark">
           <Image
             src="/logo-dark.png"
-            alt=""
+            alt="ApexHub Labs logo"
             width={2573}
             height={542}
             className="footer__logo"
@@ -44,10 +45,11 @@ export default function Footer() {
 
           <nav className="footer__col" aria-label="Sitemap">
             <span className="footer__col-head eyebrow">Index</span>
-            <a href="#services">Services</a>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <SiteLink href="/#services">Services</SiteLink>
+            <SiteLink href="/#pricing">Pricing</SiteLink>
+            <SiteLink href="/#work">Work</SiteLink>
+            <SiteLink href="/#about">About</SiteLink>
+            <SiteLink href="/#contact">Contact</SiteLink>
           </nav>
 
           <nav className="footer__col" aria-label="Social">

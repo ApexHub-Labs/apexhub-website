@@ -13,6 +13,12 @@ const STEPS = [
   { num: "05", name: "Grow", note: "Iterate, scale and keep moving forward." },
 ];
 
+// What a client can count on at every stage.
+const PROMISES = [
+  "Weekly progress updates",
+  "Working hours that overlap with US business hours",
+];
+
 export default function Approach() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -31,7 +37,7 @@ export default function Approach() {
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              04 — Process
+              <span className="sec-num">05</span> — Process
             </Reveal>
             <SplitText
               as="h2"
@@ -58,6 +64,15 @@ export default function Approach() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal className="promises" delay={0}>
+          <span className="eyebrow">On every project</span>
+          <ul className="promises__list">
+            {PROMISES.map((p) => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,40 +1,35 @@
 /* ==========================================================================
    ApexHub Labs — Dark Editorial Design System
-   Colors:  #000000 (black)  #FFFFFF (white)  #676767 (gray) — ONLY
-   Head:    Myanmar Khyay, 126px, 6% letter-spacing
-   Body:    Montserrat Regular, 48px, 33% letter-spacing
+   Colors:  #000000 (black)  #FFFFFF (white)  #676767 (gray)
+            + one highlight, #C8FF2E (--accent) — used like a highlighter pen
+   Type:    Montserrat only — Bold 700 uppercase heads, Regular 400 body
    ========================================================================== */
 
-/* --- Optional self-hosted headline font ----------------------------------
-   Myanmar Khyay is not on any public CDN. Drop the font file at
-   /public/fonts/MyanmarKhyay.woff2 (or .ttf) to activate it. Until then a
-   geometric fallback stack preserves the intended bold, minimal hierarchy. */
-@font-face {
-  font-family: "Myanmar Khyay";
-  src: url("/fonts/MyanmarKhyay.woff2") format("woff2"),
-    url("/fonts/MyanmarKhyay.ttf") format("truetype");
-  font-weight: 400 700;
-  font-display: swap;
-}
-
 :root {
-  /* Palette — the only three colors allowed */
+  /* Palette — black, white, gray, plus one highlight */
   --black: #000000;
   --white: #ffffff;
-  --gray: #676767;
+  --gray: #676767; /* lines and large type only — 3.7:1 on black */
+  --gray-text: #8a8a8a; /* small text on black — 6:1, passes WCAG AA */
+
+  /* Highlight — change it here and it changes everywhere. Rare by design:
+     a mark behind a key word, numbers, hover and focus. Text on it is black. */
+  --accent: #c8ff2e;
+  --accent-hover: #b2e622; /* pressed / active shade */
+  --on-accent: var(--black);
 
   /* Dark theme semantic tokens */
   --bg: var(--black);
   --bg-raise: #0a0a0a; /* near-black surface, derived — no new hue */
   --fg: var(--white);
-  --muted: var(--gray);
+  --muted: var(--gray-text);
+  --focus: var(--accent);
   --line: rgba(255, 255, 255, 0.14);
   --line-strong: rgba(255, 255, 255, 0.28);
   --ghost: rgba(255, 255, 255, 0.045); /* huge background typography */
 
   /* Typography families */
-  --font-head: "Myanmar Khyay", var(--font-montserrat), "Arial Narrow",
-    "Arial", sans-serif;
+  --font-head: var(--font-montserrat), "Arial Narrow", "Arial", sans-serif;
   --font-body: var(--font-montserrat), system-ui, -apple-system, Segoe UI,
     Roboto, Arial, sans-serif;
 
@@ -185,8 +180,21 @@ ul {
 
 /* Focus visibility */
 :focus-visible {
-  outline: 2px solid var(--white);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
+}
+
+/* Highlighter mark — black text on the accent, for one or two key words */
+.hl {
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0 0.16em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* Section number in an eyebrow label ("02 — Capabilities") */
+.sec-num {
+  color: var(--accent);
 }
 
 /* --- Scroll progress bar (fixed, top) ------------------------------------ */
@@ -196,7 +204,7 @@ ul {
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--white);
+  background: var(--accent);
   transform-origin: 0 50%;
   z-index: 300;
   will-change: transform;
@@ -220,37 +228,50 @@ ul {
   color: var(--black);
   cursor: pointer;
   overflow: hidden;
-  transition: color 0.4s var(--ease);
+  transition: color 0.4s var(--ease), border-color 0.4s var(--ease),
+    transform 0.15s var(--ease);
   white-space: nowrap;
   isolation: isolate;
 }
-/* wipe fill */
+/* wipe fill — the accent rises on hover; text on it stays black */
 .btn::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--black);
+  background: var(--accent);
   transform: translateY(101%);
-  transition: transform 0.45s var(--ease-editorial);
+  transition: transform 0.45s var(--ease-editorial),
+    background-color 0.15s var(--ease);
   z-index: -1;
 }
 .btn:hover {
-  color: var(--white);
+  color: var(--on-accent);
+  border-color: var(--accent);
 }
 .btn:hover::before {
   transform: translateY(0);
+}
+/* pressed */
+.btn:active {
+  transform: scale(0.97);
+  border-color: var(--accent-hover);
+}
+.btn:active::before {
+  background: var(--accent-hover);
 }
 .btn--ghost {
   background: transparent;
   color: var(--white);
   border-color: var(--line-strong);
 }
-.btn--ghost::before {
-  background: var(--white);
-}
 .btn--ghost:hover {
-  color: var(--black);
-  border-color: var(--white);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn:active {
+    transform: none;
+  }
 }
 .btn__arrow {
   transition: transform 0.4s var(--ease);
@@ -308,7 +329,7 @@ ul {
   content: "";
   width: clamp(8px, 1.4vw, 14px);
   height: clamp(8px, 1.4vw, 14px);
-  background: var(--muted);
+  background: var(--accent);
   border-radius: 50%;
   flex: none;
 }

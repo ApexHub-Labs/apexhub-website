@@ -49,6 +49,9 @@ export default function ApexParticleLogo({
         onFail: () => setFailed(true),
       });
     } catch (e) {
+      // WebGL could not start: swap to the still logo. This is the one-off
+      // "external system failed" case, not a render-driven state update.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFailed(true);
     }
     return () => cleanup();
@@ -58,6 +61,8 @@ export default function ApexParticleLogo({
   return (
     <div ref={wrapRef} className={className} style={{ position: 'absolute', inset: 0, overflow: 'hidden', ...style }}>
       {failed ? (
+        // Plain <img>: a rare fallback, drawn only when WebGL is unavailable.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={logoSrc}
           alt="ApexHub Labs"

@@ -8,9 +8,9 @@ import { track } from "@/lib/analytics";
 import { ArrowRight, ArrowUpRight } from "./icons";
 
 const NEEDS = [
-  "Digital Presence (website, branding, marketing)",
   "Business System (LMS, CRM, ERP, automation)",
   "Software Product (web, mobile, SaaS, MVP)",
+  "Digital Presence (website, branding, marketing)",
   "Innovation (AI, automation, emerging tech)",
   "Not sure yet — let's talk",
 ];
@@ -77,7 +77,7 @@ export default function Contact() {
     <section className="section" id="contact">
       <div className="container">
         <Reveal className="eyebrow contact__index" delay={0}>
-          06 — Start a Conversation
+          <span className="sec-num">07</span> — Start a Conversation
         </Reveal>
         <div className="contact__grid">
           <div>
@@ -88,8 +88,8 @@ export default function Contact() {
               stagger={0.045}
             />
             <p className="lead contact__lead">
-              Tell us about your organization, idea, or challenge. Let&apos;s
-              explore what we can build together.
+              Tell us about your organization, idea, or challenge, and
+              we&apos;ll set up a free 20-minute discovery call.
             </p>
 
             <div className="contact__alt">
@@ -241,6 +241,10 @@ export default function Contact() {
                     </span>
                   )}
                 </div>
+
+                <p className="form__privacy">
+                  We only use your details to reply to your message.
+                </p>
               </form>
             )}
           </Reveal>

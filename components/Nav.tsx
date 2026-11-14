@@ -1,21 +1,27 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
+import SiteLink from "./SiteLink";
 import { track } from "@/lib/analytics";
 import { ArrowRight } from "./icons";
 
+// `index` is the number shown on that section's own label.
 const LINKS = [
-  { href: "#services", label: "Services", index: "01" },
-  { href: "#work", label: "Work", index: "02" },
-  { href: "#about", label: "About", index: "04" },
-  { href: "#contact", label: "Contact", index: "06" },
+  { id: "services", label: "Services", index: "02" },
+  { id: "pricing", label: "Pricing", index: "03" },
+  { id: "work", label: "Work", index: "04" },
+  { id: "about", label: "About", index: "06" },
+  { id: "contact", label: "Contact", index: "07" },
 ];
 
 export default function Nav() {
+  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [section, setSection] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -23,6 +29,28 @@ export default function Nav() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Scroll-spy: whichever section crosses the middle of the viewport is the
+  // active nav item. Sections without a nav entry simply light nothing.
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setSection(entry.target.id);
+        }
+      },
+      { rootMargin: "-45% 0px -55% 0px" }
+    );
+    document
+      .querySelectorAll("main section[id]")
+      .forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, [pathname]);
+
+  // On a project page, Work is where you are.
+  const active =
+    pathname === "/" ? section : pathname.startsWith("/work") ? "work" : null;
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -34,7 +62,11 @@ export default function Nav() {
   return (
     <header className="nav" data-scrolled={scrolled} data-open={open}>
       <div className="container nav__inner">
-        <a href="#top" className="nav__logo" aria-label="ApexHub Labs — home">
+        <SiteLink
+          href="/#top"
+          className="nav__logo"
+          aria-label="ApexHub Labs — home"
+        >
           <Image
             src="/logo-dark.png"
             alt="ApexHub Labs"
@@ -42,26 +74,33 @@ export default function Nav() {
             height={542}
             priority
           />
-        </a>
+        </SiteLink>
 
         <nav aria-label="Primary" id="primary-nav">
           <ul className="nav__links" data-open={open}>
             {LINKS.map((link) => (
-              <li key={link.href}>
-                <a
+              <li key={link.id}>
+                <SiteLink
                   className="nav__link"
-                  href={link.href}
+                  href={`/#${link.id}`}
+                  aria-current={
+                    active !== link.id
+                      ? undefined
+                      : pathname === "/"
+                        ? "location"
+                        : "true"
+                  }
                   onClick={() => setOpen(false)}
                 >
                   <span className="nav__link-index">{link.index}</span>
                   <span className="nav__link-label">{link.label}</span>
-                </a>
+                </SiteLink>
               </li>
             ))}
             <li className="nav__link--cta">
-              <a
+              <SiteLink
                 className="btn"
-                href="#contact"
+                href="/#contact"
                 onClick={() => {
                   setOpen(false);
                   track("cta_click", {
@@ -71,16 +110,16 @@ export default function Nav() {
                 }}
               >
                 Start a Project <ArrowRight />
-              </a>
+              </SiteLink>
             </li>
           </ul>
         </nav>
 
         <div className="nav__cta--desktop">
           <Magnetic strength={0.4}>
-            <a
+            <SiteLink
               className="btn"
-              href="#contact"
+              href="/#contact"
               onClick={() =>
                 track("cta_click", {
                   cta_label: "Start a Project",
@@ -89,7 +128,7 @@ export default function Nav() {
               }
             >
               Start a Project <ArrowRight />
-            </a>
+            </SiteLink>
           </Magnetic>
         </div>
 
