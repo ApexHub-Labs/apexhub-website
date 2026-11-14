@@ -88,8 +88,8 @@ export default function Contact() {
               stagger={0.045}
             />
             <p className="lead contact__lead">
-              Tell us about your organization, idea, or challenge. Let&apos;s
-              explore what we can build together.
+              Tell us about your organization, idea, or challenge, and
+              we&apos;ll set up a free 20-minute discovery call.
             </p>
 
             <div className="contact__alt">
@@ -241,6 +241,10 @@ export default function Contact() {
                     </span>
                   )}
                 </div>
+
+                <p className="form__privacy">
+                  We only use your details to reply to your message.
+                </p>
               </form>
             )}
           </Reveal>

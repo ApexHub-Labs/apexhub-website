@@ -1263,6 +1263,13 @@
   color: var(--fg);
   font-weight: 600;
 }
+.form__privacy {
+  grid-column: 1 / -1;
+  margin-top: -0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
 .form__success {
   grid-column: 1 / -1;
   border: 1px solid var(--line-strong);
