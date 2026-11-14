@@ -1,21 +1,14 @@
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
-import Parallax from "./Parallax";
 
 export default function About() {
   return (
     <section className="section about" id="about">
-      <div className="about__ghost" aria-hidden="true">
-        <Parallax distance={60}>
-          <span>(A)</span>
-        </Parallax>
-      </div>
-
       <div className="container">
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              05 — Who We Are
+              <span className="sec-num">05</span> — Who We Are
             </Reveal>
             <SplitText
               as="h2"

@@ -31,7 +31,7 @@ export default function Approach() {
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              04 — Process
+              <span className="sec-num">04</span> — Process
             </Reveal>
             <SplitText
               as="h2"

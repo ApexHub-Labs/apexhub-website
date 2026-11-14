@@ -13,7 +13,7 @@ export type ProjectImage = {
 
 export type ProjectLink = {
   href: string; // empty string => not clickable (plain label)
-  label: string; // "Visit site" | "View source" | "Case study"
+  label: string; // "Visit site" | "View prototype" | "View source" | "Case study"
 };
 
 export type Project = {
@@ -47,7 +47,7 @@ export const featured: FeaturedProject = {
       name: "Website",
       type: "Public website",
       summary:
-        "Gave a growing education provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
+        "Gave a US K–12 tutoring provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
       tech: ["Next.js", "React", "SEO"],
       link: { href: "https://americanprepacademy.com", label: "Visit site" },
       cover: {
@@ -198,14 +198,14 @@ export const projects: Project[] = [
     link: { href: "https://maderia-u537.vercel.app", label: "Visit site" },
     cover: {
       src: "/projects/maderia/main.webp",
-      alt: "Maderia 'Room Reservation App' promo with phone screens of hotel search and a map",
+      alt: "Maderia hotel booking app shown on two phones: hotel search by location and a map of hotels around Addis Ababa",
       width: 1350,
       height: 635,
     },
     images: [
       {
         src: "/projects/maderia/cover.webp",
-        alt: "Maderia 'Room Reservation App' promo with phone screens of hotel search and a map",
+        alt: "Maderia hotel booking app shown on two phones: hotel search by location and a map of hotels around Addis Ababa",
         width: 1748,
         height: 1240,
       },
@@ -295,7 +295,10 @@ export const projects: Project[] = [
     summary:
       "Employers post jobs and manage applicants from their own dashboard, job seekers find and apply to roles, and an admin panel runs the whole platform. Built for subscription plans on both sides.",
     tech: ["Next.js", "React", "PostgreSQL"],
-    link: { href: "https://prior-bet-02961929.figma.site/", label: "Visit site" },
+    link: {
+      href: "https://prior-bet-02961929.figma.site/",
+      label: "View prototype",
+    },
     badge: "Demo",
     cover: {
       src: "/projects/working/main.webp",

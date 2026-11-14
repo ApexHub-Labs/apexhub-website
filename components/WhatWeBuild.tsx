@@ -40,7 +40,7 @@ export default function WhatWeBuild() {
         <div className="sec-head">
           <div className="sec-head__lead">
             <Reveal className="eyebrow" delay={0}>
-              02 — Capabilities
+              <span className="sec-num">02</span> — Capabilities
             </Reveal>
             <SplitText
               as="h2"
