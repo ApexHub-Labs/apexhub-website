@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Providers from "@/components/Providers";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Self-hosted (latin, variable weight) so neither dev nor the build depends on
+// fetching from Google Fonts.
+const montserrat = localFont({
+  src: "./fonts/montserrat-latin-variable.woff2",
+  weight: "400 700",
   variable: "--font-montserrat",
   display: "swap",
 });
 
-const TITLE = "ApexHub Labs — Websites and business systems for US businesses";
+const TITLE = "ApexHub Labs — Digital work that pays off";
 const DESCRIPTION =
-  "ApexHub Labs builds websites and business systems for US businesses, from Addis Ababa. See our work for American Prep Academy, a US K-12 tutoring provider.";
+  "ApexHub Labs builds websites, platforms and business systems that earn trust, run the work and pay off. See our work for American Prep Academy, a K-12 tutoring provider in Washington, DC.";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GOOGLE_SITE_VERIFICATION =
@@ -36,7 +38,7 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
-    "websites for US businesses",
+    "business websites",
     "business systems",
     "software development",
     "web development",

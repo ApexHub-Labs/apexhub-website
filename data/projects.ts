@@ -41,7 +41,7 @@ export type FeaturedProject = {
 
 export const featured: FeaturedProject = {
   name: "American Prep Academy",
-  type: "Website and learning platform for a US K–12 tutoring provider",
+  type: "Website and learning platform for a K–12 tutoring provider in Washington, DC",
   summary: "We built their public website and the platform behind it.",
   deliverables: [
     {
@@ -49,7 +49,7 @@ export const featured: FeaturedProject = {
       name: "Website",
       type: "Public website",
       summary:
-        "Gave a US K–12 tutoring provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
+        "Gave a K–12 tutoring provider a fast, search-optimized site that turns visitors into enrollments and tutor applications.",
       tech: ["Next.js", "React", "SEO"],
       link: { href: "https://americanprepacademy.com", label: "Visit site" },
       cover: {

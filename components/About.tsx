@@ -49,25 +49,22 @@ export default function About() {
           </Reveal>
         </div>
 
-        <div className="about__grid founder">
-          <Reveal className="founder__id" delay={0}>
-            <div className="founder__photo">
-              <Image
-                src="/founder-michael-behailu.jpg"
-                alt="Michael Behailu, founder of ApexHub Labs"
-                width={1080}
-                height={1350}
-                sizes="(max-width: 820px) 60vw, 18vw"
-              />
-            </div>
-            <div>
-              <span className="eyebrow">Founder</span>
-              <h3 className="founder__name">Michael Behailu</h3>
-              <p className="founder__role">Founder and Lead Engineer</p>
-            </div>
+        <div className="founder">
+          <Reveal className="founder__photo" delay={0}>
+            <Image
+              src="/founder-michael-behailu.jpg"
+              alt="Michael Behailu, founder of ApexHub Labs"
+              width={2160}
+              height={2700}
+              quality={95}
+              sizes="(max-width: 820px) 92vw, 34vw"
+            />
           </Reveal>
-          <Reveal className="about__body" delay={120}>
-            <p>
+          <Reveal className="founder__body" delay={120}>
+            <span className="eyebrow">Founder</span>
+            <h3 className="founder__name">Michael Behailu</h3>
+            <p className="founder__role">Founder and Lead Engineer</p>
+            <p className="founder__bio">
               Michael leads ApexHub Labs from Addis Ababa. He was project
               manager and lead software developer on the American Prep Academy
               website and learning platform.
