@@ -73,13 +73,14 @@ export default function Packages() {
             </Reveal>
             <SplitText
               as="h2"
-              text="US-quality products at offshore prices"
+              text="Premium work at clear, fair prices"
+              highlight="fair prices"
               className="head sec-head__title"
               stagger={0.045}
             />
           </div>
           <Reveal as="p" className="sec-head__note" delay={120}>
-            Starting prices, in US dollars.
+            Starting prices for each package.
           </Reveal>
         </div>
 

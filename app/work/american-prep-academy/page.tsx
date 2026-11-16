@@ -15,7 +15,7 @@ import { BOOKING_URL, CASE_STUDY_PATH, SITE_URL } from "@/lib/site";
 
 const TITLE = "American Prep Academy case study";
 const DESCRIPTION =
-  "How ApexHub Labs built the public website and the learning platform for American Prep Academy, a US K-12 tutoring provider based in Washington, DC.";
+  "How ApexHub Labs built the public website and the learning platform for American Prep Academy, a K-12 tutoring provider based in Washington, DC.";
 const CLIENT_URL = "https://americanprepacademy.com";
 
 export const metadata: Metadata = {
@@ -74,7 +74,7 @@ export default function AmericanPrepAcademyCaseStudy() {
                 className="head sec-head__title"
               />
               <Reveal as="p" className="lead case__lead" delay={120}>
-                American Prep Academy is a US K–12 tutoring provider based in
+                American Prep Academy is a K–12 tutoring provider based in
                 Washington, DC. We built their public website and their learning
                 platform.
               </Reveal>

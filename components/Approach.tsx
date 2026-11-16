@@ -16,7 +16,7 @@ const STEPS = [
 // What a client can count on at every stage.
 const PROMISES = [
   "Weekly progress updates",
-  "Working hours that overlap with US business hours",
+  "Working hours that overlap with yours",
 ];
 
 export default function Approach() {

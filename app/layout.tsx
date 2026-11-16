@@ -12,9 +12,9 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-const TITLE = "ApexHub Labs — Websites and business systems for US businesses";
+const TITLE = "ApexHub Labs — Digital work that pays off";
 const DESCRIPTION =
-  "ApexHub Labs builds websites and business systems for US businesses, from Addis Ababa. See our work for American Prep Academy, a US K-12 tutoring provider.";
+  "ApexHub Labs builds websites, platforms and business systems that earn trust, run the work and pay off. See our work for American Prep Academy, a K-12 tutoring provider in Washington, DC.";
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const GOOGLE_SITE_VERIFICATION =
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   },
   description: DESCRIPTION,
   keywords: [
-    "websites for US businesses",
+    "business websites",
     "business systems",
     "software development",
     "web development",
