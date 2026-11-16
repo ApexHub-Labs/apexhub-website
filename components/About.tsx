@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
 import SplitText from "./SplitText";
+import { ArrowUpRight } from "./icons";
 
 export default function About() {
   return (
@@ -71,6 +72,22 @@ export default function About() {
               manager and lead software developer on the American Prep Academy
               website and learning platform.
             </p>
+            <div className="founder__links">
+              <a
+                href="https://www.linkedin.com/in/michael-behailu-20ab05287/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                LinkedIn <ArrowUpRight size={14} />
+              </a>
+              <a
+                href="https://github.com/Miki-b"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub <ArrowUpRight size={14} />
+              </a>
+            </div>
           </Reveal>
         </div>
       </div>

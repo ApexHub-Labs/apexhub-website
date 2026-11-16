@@ -45,6 +45,7 @@ export default function WhatWeBuild() {
             <SplitText
               as="h2"
               text="What We Build"
+              highlight="Build"
               className="head sec-head__title"
             />
           </div>

@@ -26,7 +26,7 @@ export default function Footer() {
 
         <div className="footer__mark">
           <Image
-            src="/logo-dark.png"
+            src="/logo-green.png"
             alt="ApexHub Labs logo"
             width={2573}
             height={542}

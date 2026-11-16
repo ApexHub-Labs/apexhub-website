@@ -721,6 +721,7 @@
   letter-spacing: var(--track-head);
   text-transform: uppercase;
   line-height: 1.05;
+  color: var(--accent);
 }
 .proj-card__type {
   font-size: var(--fs-label);
@@ -758,14 +759,14 @@
   font-size: var(--fs-label);
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--fg);
+  color: var(--accent);
   border-bottom: 1px solid var(--line-strong);
   transition: gap 0.3s var(--ease), border-color 0.3s var(--ease),
     color 0.3s var(--ease);
 }
 .proj-link:hover {
   gap: 0.7rem;
-  color: var(--accent);
+  color: var(--accent-hover);
   border-color: var(--accent);
 }
 .proj-link--static {
@@ -795,6 +796,7 @@
   letter-spacing: var(--track-head);
   text-transform: uppercase;
   line-height: 1;
+  color: var(--accent);
 }
 .proj-feature__type {
   margin-top: 0.6rem;
@@ -987,7 +989,7 @@
 .steps__fill {
   position: absolute;
   inset: 0;
-  background: var(--white);
+  background: var(--accent);
   transform-origin: 0 50%;
 }
 .step {
@@ -1006,7 +1008,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--white);
+  background: var(--accent);
 }
 .step__name {
   font-family: var(--font-head);
@@ -1106,7 +1108,7 @@
 }
 .founder__photo {
   flex: none;
-  width: clamp(9rem, 18vw, 15rem);
+  width: clamp(13rem, 26vw, 22rem);
   border: 1px solid var(--line);
 }
 .founder__photo img {
@@ -1129,6 +1131,28 @@
   text-transform: uppercase;
   color: var(--muted);
 }
+.founder__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+.founder__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--fg);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 0.2rem;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.founder__links a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 @media (max-width: 820px) {
   .about__grid {
     grid-template-columns: 1fr;
@@ -1138,7 +1162,7 @@
     align-items: flex-start;
   }
   .founder__photo {
-    width: min(60vw, 15rem);
+    width: min(78vw, 20rem);
   }
 }
 
@@ -1459,7 +1483,7 @@
 .footer__logo {
   width: 100%;
   height: auto;
-  opacity: 0.5;
+  opacity: 0.85;
 }
 .footer__grid {
   display: grid;
