@@ -1108,7 +1108,7 @@
 }
 .founder__photo {
   flex: none;
-  width: clamp(9rem, 18vw, 15rem);
+  width: clamp(13rem, 26vw, 22rem);
   border: 1px solid var(--line);
 }
 .founder__photo img {
@@ -1162,7 +1162,7 @@
     align-items: flex-start;
   }
   .founder__photo {
-    width: min(60vw, 15rem);
+    width: min(78vw, 20rem);
   }
 }
 
