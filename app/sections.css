@@ -721,6 +721,7 @@
   letter-spacing: var(--track-head);
   text-transform: uppercase;
   line-height: 1.05;
+  color: var(--accent);
 }
 .proj-card__type {
   font-size: var(--fs-label);
@@ -758,14 +759,14 @@
   font-size: var(--fs-label);
   letter-spacing: var(--track-label);
   text-transform: uppercase;
-  color: var(--fg);
+  color: var(--accent);
   border-bottom: 1px solid var(--line-strong);
   transition: gap 0.3s var(--ease), border-color 0.3s var(--ease),
     color 0.3s var(--ease);
 }
 .proj-link:hover {
   gap: 0.7rem;
-  color: var(--accent);
+  color: var(--accent-hover);
   border-color: var(--accent);
 }
 .proj-link--static {
@@ -795,6 +796,7 @@
   letter-spacing: var(--track-head);
   text-transform: uppercase;
   line-height: 1;
+  color: var(--accent);
 }
 .proj-feature__type {
   margin-top: 0.6rem;
@@ -987,7 +989,7 @@
 .steps__fill {
   position: absolute;
   inset: 0;
-  background: var(--white);
+  background: var(--accent);
   transform-origin: 0 50%;
 }
 .step {
@@ -1006,7 +1008,7 @@
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: var(--white);
+  background: var(--accent);
 }
 .step__name {
   font-family: var(--font-head);
@@ -1481,7 +1483,7 @@
 .footer__logo {
   width: 100%;
   height: auto;
-  opacity: 0.5;
+  opacity: 0.85;
 }
 .footer__grid {
   display: grid;
