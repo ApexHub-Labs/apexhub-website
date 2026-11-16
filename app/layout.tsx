@@ -1,13 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import localFont from "next/font/local";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import Providers from "@/components/Providers";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+// Self-hosted (latin, variable weight) so neither dev nor the build depends on
+// fetching from Google Fonts.
+const montserrat = localFont({
+  src: "./fonts/montserrat-latin-variable.woff2",
+  weight: "400 700",
   variable: "--font-montserrat",
   display: "swap",
 });
