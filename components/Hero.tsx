@@ -30,8 +30,8 @@ export default function Hero() {
 
         <SplitText
           as="h1"
-          text="We build websites and business systems for US businesses, from Addis Ababa."
-          highlight="US businesses"
+          text="We build digital work that pays off."
+          highlight="pays off"
           className="head hero__title"
           stagger={0.04}
         />
